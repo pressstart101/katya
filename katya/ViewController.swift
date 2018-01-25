@@ -59,6 +59,25 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
+    
+    @IBAction func print_button(_ sender: Any) {
+        // 1
+        let printController = UIPrintInteractionController.shared
+        // 2
+        let printInfo = UIPrintInfo(dictionary:nil)
+        printInfo.outputType = UIPrintInfoOutputType.general
+        printInfo.jobName = "print Job"
+        printController.printInfo = printInfo
+        
+        // 3
+        let formatter = UIMarkupTextPrintFormatter(markupText: total_result.text!)
+        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+        printController.printFormatter = formatter
+        
+        // 4
+        printController.present(animated: true, completionHandler: nil)
+    }
+    
     //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //
     //        let aSet = NSCharacterSet(charactersIn:"0123456789").inverted

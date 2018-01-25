@@ -52,6 +52,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="print"/>
+                                <connections>
+                                    <action selector="print_button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lFE-9O-r98"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1B4-gk-rbC">
                                 <rect key="frame" x="271" y="261" width="585" height="167"/>
