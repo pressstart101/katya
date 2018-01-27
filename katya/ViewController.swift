@@ -17,9 +17,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var tip_picker: UIPickerView!
     @IBOutlet weak var total_label: UILabel!
     @IBOutlet weak var total_result: UILabel!
-    @IBOutlet weak var print_button: UIButton!
+    @IBOutlet weak var artist_label: UILabel!
+    @IBOutlet weak var artist_name: UITextField!
+    @IBOutlet weak var done_button: UIButton!
+    
     
     let tip_values = ["10","15","20","25"]
+    var valueSelected = String()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,38 +49,50 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
-        let valueSelected = tip_values[row] as String
+        valueSelected = tip_values[row] as String
         print(valueSelected)
         if let valueSelected_int = Float(valueSelected){
             if let price_text_int = Float(price_text.text!){
                 print((price_text_int/100) * valueSelected_int)
-                //                let value_total = String((price_text_int/100) * valueSelected_int)
-                //                total_result.text = String.localizedStringWithFormat("%.2f", value_total)
-                total_result.text = String(format: "%.2f", ((price_text_int/100) * valueSelected_int))
+                total_result.text = String(format: "%.2f", ((price_text_int/100) * valueSelected_int) + price_text_int)
             }
         }
-        
-        
     }
     
-    
-    @IBAction func print_button(_ sender: Any) {
-        // 1
-        let printController = UIPrintInteractionController.shared
-        // 2
-        let printInfo = UIPrintInfo(dictionary:nil)
-        printInfo.outputType = UIPrintInfoOutputType.general
-        printInfo.jobName = "print Job"
-        printController.printInfo = printInfo
-        
-        // 3
-        let formatter = UIMarkupTextPrintFormatter(markupText: total_result.text!)
-        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-        printController.printFormatter = formatter
-        
-        // 4
-        printController.present(animated: true, completionHandler: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var destVC: ReceiptViewController = segue.destination as! ReceiptViewController
+//        destVC.string = valueSelected
+        if let price_wrap = price_text.text{
+            destVC.price = price_wrap
+            print(price_wrap)
+        }
+        destVC.tip = valueSelected
+        destVC.total = total_result.text!
+        destVC.artist = artist_name.text!
+//        print(price_text.text)
+//        print(valueSelected)
+//        print(total_result.text)
+//        print(artist_name.text)
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destViewController : ReceiptViewController = segue.destination as! ReceiptViewController
+//        
+////        if areEqualImages(img1: UIImage(named: "profilePic.png")!, img2: picToSave.image!){
+////            print("blah")
+////        }else{
+////            destViewController.thePic = picToSave.image!
+////
+////        }
+//        
+//        
+//        //destViewController.thePic = picToSave.image!
+//        destViewController.price = "blah"
+////        destViewController.price = price_text.text!
+////        destViewController.tip = valueSelected
+////        destViewController.total = total_result.text!
+////        destViewController.artist = artist_name.text!
+//    }
     
     //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //
