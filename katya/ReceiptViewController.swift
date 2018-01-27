@@ -88,8 +88,10 @@ class ReceiptViewController: UIViewController {
     
     func captureScreen() {
         
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 375, height: 490), false, 0);
-        self.view.drawHierarchy(in: CGRect(x: 0, y: -65, width: view.bounds.size.width,height: view.bounds.size.height), afterScreenUpdates: true)
+//        UIGraphicsBeginImageContextWithOptions(CGSize(width: 375, height: 490), false, 0);
+//        self.view.drawHierarchy(in: CGRect(x: 0, y: -65, width: view.bounds.size.width,height: view.bounds.size.height), afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
         imageCaptured = UIGraphicsGetImageFromCurrentImageContext()!;
 //        UIImageWriteToSavedPhotosAlbum(imageCaptured, nil, nil, nil)
         UIGraphicsEndImageContext()
